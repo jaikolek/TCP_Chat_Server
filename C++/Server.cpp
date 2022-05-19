@@ -6,9 +6,9 @@
 #include <fstream>
 #pragma comment(lib,"ws2_32.lib")
 
-std::vector <std::string> chatData;
+std::vector<std::string> chatData;
 
-void savingChat(std::vector <std::string> chats)
+void savingChat(std::vector<std::string> chats)
 {
 	std::ofstream file;
 	file.open("chat_log.txt");
