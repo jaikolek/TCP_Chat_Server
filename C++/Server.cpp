@@ -6,15 +6,15 @@
 #include <fstream>
 #pragma comment(lib,"ws2_32.lib")
 
-std::vector <std::string> tmpChats;
+std::vector <std::string> chatData;
 
-void saveChat(std::vector <std::string> v)
+void savingChat(std::vector <std::string> chats)
 {
 	std::ofstream file;
 	file.open("chat_log.txt");
-	for (int i = 0; i < v.size(); ++i)
+	for (int i = 0; i < chats.size(); ++i)
 	{
-		file << v[i] << std::endl;
+		file << chats[i] << std::endl;
 	}
 	file.close();
 }
@@ -28,22 +28,28 @@ int main()
 	WORD ver = MAKEWORD(2, 2); // means 2.2 version
 
 	int wsOk = WSAStartup(ver, &wsData); // initializing Winsock lib 
-	std::cout << "WinSock Started!!" << std::endl;
 
 	if (wsOk != 0)
 	{
-		std::cout << "Can`t Initialize Winsock! Quitting" << std::endl;
+		std::cout << "Can`t Initialize Winsock! Quitting..." << std::endl;
 		return 1;
+	}
+	else
+	{
+		std::cout << "WinSock Started..." << std::endl;
 	}
 
 	// Create a socket
 	SOCKET listening = socket(AF_INET, SOCK_STREAM, 0); // make socket with IPv4, TCP (SOCK_DGRAM:UDP)
-	std::cout << "Socket Created" << std::endl;
 
 	if (listening == INVALID_SOCKET)
 	{
-		std::cout << "Can`t create a socket! Quitting" << std::endl;
+		std::cout << "Can`t create a socket! Quitting..." << std::endl;
 		return 1;
+	}
+	else
+	{
+		std::cout << "Socket Created..." << std::endl;
 	}
 
 	// Bind the socket to an ip address and port to a socket
@@ -66,7 +72,7 @@ int main()
 
 	while (running)
 	{
-		// select function cause chaning of fd. so we need copy of fd
+		// select function cause changing of fd. so we need copy of fd
 		fd_set copy = master;
 		int socketCount = select(0, &copy, nullptr, nullptr, nullptr);
 
@@ -84,7 +90,7 @@ int main()
 				FD_SET(client, &master);
 
 				// Send a welcome message to the connected client
-				std::string welcomeMsg = "Welcome to my Chat Server!\r\n";
+				std::string welcomeMsg = "Welcome to my Chat Server...\r\n";
 				
 				send(client, welcomeMsg.c_str(), welcomeMsg.size() + 1, 0);
 
@@ -144,8 +150,8 @@ int main()
 					// logging user`s message to server
 					std::cout << strOut << std::endl;
 
-					tmpChats.push_back(strOut);
-					saveChat(tmpChats);
+					chatData.push_back(strOut);
+					savingChat(chatData);
 				}
 			}
 		}
