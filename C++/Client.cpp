@@ -82,7 +82,7 @@ int main()
 	closesocket(sock);
 	WSACleanup();
 
-	// pause system for exe file
+	// pause system for .exe file
 	system("pause");
 	return 0;
 }
