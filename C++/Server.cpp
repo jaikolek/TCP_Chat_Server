@@ -164,7 +164,7 @@ int main()
 	// Cleanup Winsock
 	WSACleanup();
 
-	// pause system for exe file
+	// pause system for .exe file
 	system("pause");
 	return 0;
 }
