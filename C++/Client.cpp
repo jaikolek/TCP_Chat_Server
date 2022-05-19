@@ -4,7 +4,7 @@
 #include <thread>
 #pragma comment (lib, "ws2_32.lib")
 
-void recvSocket(SOCKET sock)
+void receiveSocket(SOCKET sock)
 {
 	char buf[4096];
 	while (1)
@@ -60,7 +60,7 @@ int main()
 	}
 
 	// thread to receive data
-	std::thread recv_thread(recvSocket, sock);
+	std::thread receiveThread(receiveSocket, sock);
 
 	// Do-while loop to send data
 	std::string userInput;
@@ -78,7 +78,7 @@ int main()
 	} while (userInput.size() > 0);
 
 	// close
-	recv_thread.join();
+	receiveThread.join();
 	closesocket(sock);
 	WSACleanup();
 
