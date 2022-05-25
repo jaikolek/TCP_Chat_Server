@@ -77,12 +77,13 @@ int main()
 		}
 	} while (userInput.size() > 0);
 
-	// close
 	receiveThread.join();
+	
+	// close
 	closesocket(sock);
 	WSACleanup();
 
-	// pause system for .exe file
+	// pause system for exe file
 	system("pause");
 	return 0;
 }
