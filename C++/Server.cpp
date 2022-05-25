@@ -137,7 +137,7 @@ int main()
 
 					// Send message to other client, and definiately not the listening socket
 					std::ostringstream ss;
-					ss << "Client #" << sock << ":" << buf << "\r\n";
+					ss << "Client #" << sock << ": " << buf << "\r\n";
 					std::string strOut = ss.str();
 					for (int i = 0; i < master.fd_count; i++)
 					{
@@ -164,7 +164,7 @@ int main()
 	// Cleanup Winsock
 	WSACleanup();
 
-	// pause system for .exe file
+	// pause system for exe file
 	system("pause");
 	return 0;
 }
