@@ -8,17 +8,6 @@
 
 std::vector<std::string> chatData;
 
-void savingChat(std::vector<std::string> chats)
-{
-	std::ofstream file;
-	file.open("chat_log.txt");
-	for (int i = 0; i < chats.size(); ++i)
-	{
-		file << chats[i] << std::endl;
-	}
-	file.close();
-}
-
 int main()
 {
 	int port = 12000;
@@ -59,9 +48,11 @@ int main()
 	hint.sin_addr.S_un.S_addr = INADDR_ANY;
 
 	bind(listening, (sockaddr*)&hint, sizeof(hint));
+	std::cout << "Binding..." << std::endl;
 
 	// Tell Winsock the socket is for listening
 	listen(listening, SOMAXCONN);
+	std::cout << "Listening..." << std::endl;
 
 	fd_set master; // data-structrue that contains list of socket, and their stats
 	FD_ZERO(&master);
@@ -78,7 +69,6 @@ int main()
 
 		for (int i = 0; i < socketCount; i++)
 		{
-
 			SOCKET sock = copy.fd_array[i];
 
 			if (sock == listening)
@@ -151,7 +141,6 @@ int main()
 					std::cout << strOut << std::endl;
 
 					chatData.push_back(strOut);
-					savingChat(chatData);
 				}
 			}
 		}
